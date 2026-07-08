@@ -277,6 +277,7 @@ input.on('noteon', function (msg) {
             output.send('noteon', { note: (pageIndex + 112), velocity: 0, channel: 0 });
             pageIndex = msg.note - 112;
             pageIndex2 = msg.note - 112;
+            client.send('{"command":"Page ' + (pageIndex2 + 1) + '","session":' + session + ',"requestType":"command","maxRequests":0}'); //cambiar a página seleccionada en la interfaz
             output.send('noteon', { note: (msg.note), velocity: 1, channel: 0 });
         }
 
