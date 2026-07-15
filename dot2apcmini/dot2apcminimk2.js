@@ -278,13 +278,16 @@ input.on('noteon', function (msg) {
             
             index = msg.note - 112
             if (index + 1 !== colorpage) {
-                client.send('{"command":"Page ' + (pageIndex2 + 1) + '","session":' + session + ',"requestType":"command","maxRequests":0}'); //cambiar a página seleccionada en la interfaz
-            } else if (index%4 == pageIndex%4) { //si apretaste el mismo botón de página
+                if (index%4 == pageIndex%4) { //si apretaste el mismo botón de página
                 pageIndex = (pageIndex+4)%8;
                 pageIndex2 = pageIndex;
-            } else {
+                } else {
                 pageIndex = index;
                 pageIndex2 = index;
+                }
+                client.send('{"command":"Page ' + (pageIndex2 + 1) + '","session":' + session + ',"requestType":"command","maxRequests":0}'); //cambiar a página seleccionada en la interfaz
+            } else {
+                // COLOR SELECT PAGE, WIP
             }
 
             output.send('noteon', { note: (msg.note), velocity: 1, channel: 0 });
